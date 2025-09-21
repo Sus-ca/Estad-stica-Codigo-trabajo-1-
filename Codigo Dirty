@@ -1,0 +1,467 @@
+> Datos5
+           Jan       Feb       Mar       Apr       May       Jun       Jul
+2013  49.75691  47.69466  55.80972  51.32954  53.22773  52.49945  54.17943
+2014  53.01572  51.14668  60.61456  57.42185  58.80607  57.21753  59.38087
+2015  61.21672  59.11454  67.58500  64.57543  67.40681  62.76586  65.85270
+2016  72.33266  70.65512  76.30507  75.09665  77.56027  73.79058  81.24318
+2017  77.77949  73.31535  82.78651  83.50026  81.28039  78.40987  84.97260
+2018  83.75495  79.87420  92.44759  86.65132  88.05278  86.49373  91.14406
+2019  90.26816  87.53958 100.53144  95.16697  98.46698  99.30495 102.18430
+2020 101.48134 103.71928 138.90725 113.57173 112.17921 105.43429 106.30453
+2021 106.76266 104.41969 118.43415 109.37908 115.54801 112.18832 123.39687
+2022 131.68211 128.41821 145.58588 144.77158 151.54566 144.19628 158.98913
+2023 164.42384 158.59938 173.41809 172.34359 172.33088 166.26042 180.26824
+2024 169.29337 168.28883 186.75373 170.50560 178.65271 178.26910 181.96203
+2025 181.86162 175.58407 200.28724 188.68925 198.28262                    
+           Aug       Sep       Oct       Nov       Dec
+2013  54.76745  52.82017  52.84887  52.57245  65.53699
+2014  61.70618  57.51794  59.96591  60.90809  73.40380
+2015  69.18816  66.21841  69.14225  67.27106  83.82972
+2016  78.22908  75.33901  78.94584  73.35800  94.76975
+2017  82.35652  81.90258  82.71920  79.61808 100.48737
+2018  89.66373  90.85791  88.37506  85.54771 107.08089
+2019 103.50953 101.09616 101.49199 100.57219 119.86774
+2020 101.79733 104.09718 110.35424 108.12312 126.12881
+2021 122.69879 119.82412 125.65034 122.79894 148.80122
+2022 155.87416 153.43914 162.20927 153.51160 186.39847
+2023 173.65106 173.57606 174.22810 166.31737 200.51303
+2024 183.05834 178.60171 181.28672 178.85927 211.56415
+2025                                                  
+> plot(Datos5, main="Alimentos (viveres en general) y bbidas no alcoholicas(Escala Original)")
+> plot(decompose(Datos5,type="multiplicative"))
+> m=12                    # Validación cruzada con 12 periodos
+> s=11                    # Estacionalidad (ene–nov)
+> n=length(Datos7)-m
+Error: objeto 'Datos7' no encontrado
+> n=length(Datos5)-m
+> m=12
+> s=11
+> n = length(Datos5)-m
+> t=1:n
+> yt=ts(Datos5[t],freq=12,start=c(2013,1))
+> Tt.log=decompose(log(serie))$trend
+Error: objeto 'serie' no encontrado
+> Tt.log=decompose(log(yt))$trend
+> plot(Tt.log,ylim=c(min(log(yt)),max(log(yt))))
+> mes=seasonaldummy(yt)
+Error en seasonaldummy(yt): 
+  no se pudo encontrar la función "seasonaldummy"
+> install.packages("forecast")
+Installing package into ‘C:/Users/suscu/AppData/Local/R/win-library/4.4’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+probando la URL 'https://www.icesi.edu.co/CRAN/bin/windows/contrib/4.4/forecast_8.24.0.zip'
+Content type 'application/zip' length 1913731 bytes (1.8 MB)
+downloaded 1.8 MB
+
+package ‘forecast’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\suscu\AppData\Local\Temp\Rtmp0kt98C\downloaded_packages
+> mes=seasonaldummy(yt)
+Error en seasonaldummy(yt): 
+  no se pudo encontrar la función "seasonaldummy"
+> mes=seasonaldummy(yt)
+Error en seasonaldummy(yt): 
+  no se pudo encontrar la función "seasonaldummy"
+> library(forecast)
+Registered S3 method overwritten by 'quantmod':
+  method            from
+  as.zoo.data.frame zoo 
+Aviso:
+package ‘forecast’ was built under R version 4.4.3 
+> mes = seasonaldummy(yt)
+> #polinomio de grado 3
+> poli1=Mipoly(tiemṕo = t, grado=3)
+Error en Mipoly(tiemṕo = t, grado = 3): 
+  no se pudo encontrar la función "Mipoly"
+> source("https://raw.githubusercontent.com/NelfiGonzalez/Funciones-de-Usuario-Estadistica-III/main/Funcion-Mipoly.R")
+> poli1 = Mipoly(tiempo=t, grado = 3)
+> #Matriz de diseño para ajuste 
+> X1 = data.frame(poli1,mes)
+> X1 = data.frame(poli1,mes)
+> #para el pronostico
+> tnuevo=(n+1):lenght(Datos5)
+Error en lenght(Datos5): no se pudo encontrar la función "lenght"
+> tnuevo=(n+1):length(Datos5)
+> ytnuevo = ts(Datos5[tnuevo],freq=12,start=c(2024,5))
+> mesnuevo = seasonaldummy(yt,h=12)
+> poli1nuevo = Mipoly(tiempo = tnuevo,grado=3)
+> X1nuevo = data.frame(poli1nuevo,mesnuevo)
+> #Analisis descriptivo
+> win.graph();plot(Datos5, main = "Serie en escala original",ylab="Indice")
+> win.graph(); periodogram(diff(Datos5),lwd=4); abline(v=c(1:6)/12,col=2,lty=2)
+Error en periodogram(diff(Datos5), lwd = 4): 
+  no se pudo encontrar la función "periodogram"
+> library(stats)
+> win.graph(); periodogram(diff(Datos5),lwd=4); abline(v=c(1:6)/12,col=2,lty=2)
+Error en periodogram(diff(Datos5), lwd = 4): 
+  no se pudo encontrar la función "periodogram"
+
+> > save.image("C:\\Users\\suscu\\Downloads\\Trabajo estadistica\\Susca")
+> win.graph(); periodogram(diff(Datos5),lwd=4); abline(v=c(1:6)/12,col=2,lty=2)
+Error en periodogram(diff(Datos5), lwd = 4): 
+  no se pudo encontrar la función "periodogram"
+> library(stats)
+> library(stats)
+> win.graph(); periodogram(diff(Datos5),lwd=4); abline(v=c(1:6)/12,col=2,lty=2)
+Error en periodogram(diff(Datos5), lwd = 4): 
+  no se pudo encontrar la función "periodogram"
+> install.packages("stats")
+Aviso: package ‘stats’ is in use and will not be installed
+> win.graph(); periodogram(diff(Datos5),lwd=4); abline(v=c(1:6)/12,col=2,lty=2)
+Error en periodogram(diff(Datos5), lwd = 4): 
+  no se pudo encontrar la función "periodogram"
+> stats
+Error: objeto 'stats' no encontrado
+> library(stats)
+> win.graph(); periodogram(diff(Datos5),lwd=4); abline(v=c(1:6)/12,col=2,lty=2)
+Error en periodogram(diff(Datos5), lwd = 4): 
+  no se pudo encontrar la función "periodogram"
+> win.graph(); boxplot(Datos5~cycle(Datos5), main="Boxplot estacional por mes")
+> win.graph(); periodogram(diff(Datos5),lwd=4); abline(v=c(1:6)/12,col=2,lty=2)
+Error en periodogram(diff(Datos5), lwd = 4): 
+  no se pudo encontrar la función "periodogram"
+> win.graph(); plot(decompose(Datos7, type="multiplicative")$trend,
++                   ylim=c(min(Datos7),max(Datos7)),lwd=4,
++ 
+Error: unexpected end of input
+> win.graph(); plot(decompose(Datos7, type="multiplicative")$trend,
++                   ylim=c(min(Datos7),max(Datos7)),lwd=4,
++ win.graph(); plot(decompose(Datos5, type = "multiplicative")$trend,ylim=c(min(Datos5),max(Datos5)),lwd=4,main="Tendencia(descomposición multiplicativa)")
+Error: inesperado ';' in:
+"                  ylim=c(min(Datos7),max(Datos7)),lwd=4,
+win.graph();"
+> win.graph(); plot(decompose(Datos5, type = "multiplicative")$trend,ylim=c(min(Datos5),max(Datos5)),lwd=4,main="Tendencia(descomposición multiplicativa)")
+> #modelo 1 Polinomial de grado 3
+> #modelo 1 modelo log polinomial estaciona de grado 3
+> modelo1 = lm(yt_log~.,data=X1)
+Error en eval(predvars, data, env): objeto 'yt_log' no encontrado
+> modelo1 = lm(yt~.,data=X1)
+> summary(modelo1)
+
+Call:
+lm(formula = yt ~ ., data = X1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-17.0589  -2.2261   0.1114   2.7428  25.0878 
+
+Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  6.387e+01  2.772e+00  23.044  < 2e-16 ***
+t            7.488e-01  1.312e-01   5.707 8.21e-08 ***
+t2          -5.902e-03  2.204e-03  -2.678 0.008419 ** 
+t3           5.862e-05  1.050e-05   5.585 1.45e-07 ***
+Jan         -1.845e+01  2.491e+00  -7.408 1.83e-11 ***
+Feb         -2.192e+01  2.490e+00  -8.806 1.06e-14 ***
+Mar         -9.125e+00  2.489e+00  -3.666 0.000366 ***
+Apr         -1.644e+01  2.488e+00  -6.608 1.08e-09 ***
+May         -1.497e+01  2.488e+00  -6.018 1.91e-08 ***
+Jun         -1.823e+01  2.543e+00  -7.171 6.24e-11 ***
+Jul         -1.292e+01  2.542e+00  -5.085 1.35e-06 ***
+Aug         -1.525e+01  2.541e+00  -6.000 2.08e-08 ***
+Sep         -1.779e+01  2.540e+00  -7.002 1.48e-10 ***
+Oct         -1.616e+01  2.540e+00  -6.363 3.61e-09 ***
+Nov         -2.042e+01  2.540e+00  -8.039 6.61e-13 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.956 on 122 degrees of freedom
+Multiple R-squared:  0.9793,    Adjusted R-squared:  0.9769 
+F-statistic: 412.2 on 14 and 122 DF,  p-value: < 2.2e-16
+
+> ythat1=ts(fitted(modelo1)freq=12,start=start(yt))
+Error: unexpected symbol en "ythat1=ts(fitted(modelo1)freq"
+> ythat1= ts(fitted(modelo1),freq=12,start=start(yt))
+> win.graph();plot(Datos5); lines(ythat1,col=2,lwd=2)legend("topleft",legend = c("Original","Modelo 1 (log cubico)"),col=c(1,2),Ity=1)
+Error: unexpected symbol en " lines(ythat1,col=2,lwd=2)legend"
+> win.graph();plot(Datos5); lines(ythat1,col=2,lwd=2),legend("topleft",legend = c("Original","Modelo 1 (log cubico)"),col=c(1,2),Ity=1) 
+Error: inesperado ',' en " lines(ythat1,col=2,lwd=2),"
+> win.graph(); plot(Datos5); lines(ythat1,col=2,lwd=2); legend("topleft",legend=c("Original","Modelo 1 (polinomial g1)"),col=c(1,2),lty=1)
+> npar1=length(coef(modelo1)[coef(modelo1)!=0])
+> Criterios1=exp.crit.inf.resid(residuales=residuals(modelo1),n.par=npar1)
+Error en exp.crit.inf.resid(residuales = residuals(modelo1), n.par = npar1): 
+  no se pudo encontrar la función "exp.crit.inf.resid"
+> source("https://raw.githubusercontent.com/NelfiGonzalez/Funciones-de-Usuario-Estadistica-III/main/Funciones-Criterios.Informacion-Calidad.Intervalos.R")
+> Criterios1=exp.crit.inf.resid(residuales=residuals(modelo1),n.par=npar1)
+> pronmodelo1=predict(modelo1,newdata=X1nuevo,interval="prediction",level=0.95)
+> pronmodelo1=ts(pronmodelo1,freq=12,start=start(ytnuevo))
+> ytpron1=pronmodelo1[,1]
+> pronmodelo1=predict(modelo1,newdata=X1nuevo,interval="prediction",level=0.95)
+> pronmodelo1=ts(pronmodelo1,freq=12,start=start(ytnuevo))
+> ytpron1=pronmodelo1[,1]
+> accuracy(ytpron1,ytnuevo)
+                ME     RMSE      MAE       MPE     MAPE      ACF1 Theil's U
+Test set -21.58332 22.45523 21.58332 -11.63879 11.63879 0.3301396  1.437903
+> amplcobmodelo1=amplitud.cobertura(ytnuevo,pronmodelo1[,2],pronmodelo1[,3])
+> ScoreIP1=IntervalScore(ytnuevo,pronmodelo1[,2],pronmodelo1[,3],alpha=0.05)
+> win.graph(); plot.ts(residuals(modelo1))
+> abline(h=c(-2*summary(modelo1)$sigma,0,2*summary(modelo1)$sigma),col=2)
+> win.graph(); plot.ts(residuals(modelo1))
+> abline(h=c(-2*summary(modelo1)$sigma,0,2*summary(modelo1)$sigma),col=2)
+> modelo2 = regexponencialv02(y = Datos7, X = X1)
+Error en regexponencialv02(y = Datos7, X = X1): 
+  no se pudo encontrar la función "regexponencialv02"
+> source("https://raw.githubusercontent.com/NelfiGonzalez/Funciones-de-Usuario-Estadistica-III/main/Funcion-regexponencialv02.R")
+> modelo2 = regexponencialv02(y = Datos7, X = X1)
+Error en regexponencialv02(y = Datos7, X = X1): 
+  los argumentos no fueron usados (y = Datos7, X = X1)
+> source("https://raw.githubusercontent.com/NelfiGonzalez/Funciones-de-Usuario-Estadistica-III/main/Funcion-regexponencialv02.R")
+> source("https://raw.githubusercontent.com/NelfiGonzalez/Funciones-de-Usuario-Estadistica-III/main/Funcion-regexponencialv02.R")
+> modelo2 = regexponencialv02(y = Datos5, X = X1)
+Error en regexponencialv02(y = Datos5, X = X1): 
+  los argumentos no fueron usados (y = Datos5, X = X1)
+> modelo2= regexponencialv02(y = Datos5, X = X1)
+Error en regexponencialv02(y = Datos5, X = X1): 
+  los argumentos no fueron usados (y = Datos5, X = X1)
+> modelo2 = regexponencialv02(Datos5, X1)
+Error en model.frame.default(formula = log(yt) ~ ., data = data, drop.unused.levels = TRUE): 
+  las longitudes variables difieren (encontradas para 't')
+> length(Datos5)
+[1] 149
+> length(t)
+[1] 137
+> t_ajustado = 1:length(Datos5)
+> poli1 = Mipoly(tiempo = t_ajustado, grado = 3)
+> poli1 = Mipoly(tiempo = t_ajustado, grado = 3)
+> X1 = data.frame(poli1, mes)
+Error en data.frame(poli1, mes): 
+  los argumentos implican un número diferente de filas: 149, 137
+> save.image("C:\\Users\\suscu\\Downloads\\Trabajo estadistica\\Susca")
+> # Asegúrate de que tu variable de tiempo t_ajustado tenga la misma longitud que Datos5
+> t_ajustado = 1:length(Datos5)
+> t_ajustado = 1:length(Datos5)
+> mes = seasonaldummy(ts(Datos5, freq=12))
+> poli1 = Mipoly(tiempo=t_ajustado, grado=3)
+> poli1 = Mipoly(tiempo=t_ajustado, grado=3)
+> X1 = data.frame(poli1, mes)
+> modelo2 = regexponencialv02(Datos5, X1)
+> source("https://raw.githubusercontent.com/NelfiGonzalez/Funciones-de-Usuario-Estadistica-III/main/Funcion-predict_expo.R")
+> pronmodelo2 = predict_expo(modelo = modelo2, Xnew = X1nuevo, interval = "prediction", level = 0.95)
+Error en predict_expo(modelo = modelo2, Xnew = X1nuevo, interval = "prediction", : 
+  el argumento no fue usado (Xnew = X1nuevo)
+> pronmodelo2 = predict_expo(modelo = modelo2, Xnew = X1, interval = "prediction", level = 0.95)
+Error en predict_expo(modelo = modelo2, Xnew = X1, interval = "prediction", : 
+  el argumento no fue usado (Xnew = X1)
+> pronmodelo2 = predict_expo(modelo2, X1nuevo, interval = "prediction", level = 0.95)
+> summary(modelo2)
+
+Formula: yt ~ exp(Intercept * 1 + param_t * t + param_t2 * t2 + param_t3 * 
+    t3 + param_Jan * Jan + param_Feb * Feb + param_Mar * Mar + 
+    param_Apr * Apr + param_May * May + param_Jun * Jun + param_Jul * 
+    Jul + param_Aug * Aug + param_Sep * Sep + param_Oct * Oct + 
+    param_Nov * Nov)
+
+Parameters:
+            Estimate Std. Error t value Pr(>|t|)    
+Intercept  4.134e+00  3.649e-02 113.288  < 2e-16 ***
+param_t    3.800e-03  1.574e-03   2.415 0.017101 *  
+param_t2   7.173e-05  2.106e-05   3.406 0.000870 ***
+param_t3  -2.630e-07  8.317e-08  -3.162 0.001940 ** 
+param_Jan -1.657e-01  2.086e-02  -7.945 7.02e-13 ***
+param_Feb -1.999e-01  2.117e-02  -9.443  < 2e-16 ***
+param_Mar -7.729e-02  1.969e-02  -3.926 0.000137 ***
+param_Apr -1.458e-01  2.033e-02  -7.171 4.53e-11 ***
+param_May -1.236e-01  2.001e-02  -6.176 7.34e-09 ***
+param_Jun -1.592e-01  2.173e-02  -7.330 1.95e-11 ***
+param_Jul -1.100e-01  2.098e-02  -5.243 6.00e-07 ***
+param_Aug -1.320e-01  2.112e-02  -6.249 5.13e-09 ***
+param_Sep -1.557e-01  2.130e-02  -7.313 2.14e-11 ***
+param_Oct -1.400e-01  2.098e-02  -6.673 6.03e-10 ***
+param_Nov -1.799e-01  2.136e-02  -8.424 4.96e-14 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 6.372 on 134 degrees of freedom
+
+Number of iterations to convergence: 4 
+Achieved convergence tolerance: 2.063e-07
+
+> pronmodelo2_original = exp(pronmodelo2)
+> summary(pronmodelo2_original)
+    forecast             lower               upper           
+ Min.   :5.404e+76   Min.   :4.241e+70   Min.   : 6.886e+82  
+ 1st Qu.:8.480e+78   1st Qu.:6.279e+72   1st Qu.: 1.147e+85  
+ Median :7.131e+80   Median :5.086e+74   Median : 1.001e+87  
+ Mean   :3.299e+93   Mean   :2.097e+87   Mean   : 5.190e+99  
+ 3rd Qu.:2.321e+86   3rd Qu.:1.293e+80   3rd Qu.: 4.165e+92  
+ Max.   :3.959e+94   Max.   :2.516e+88   Max.   :6.228e+100  
+> accuracy(pronmodelo2_original, ytnuevo)
+Error en accuracy.default(pronmodelo2_original, ytnuevo): 
+  No accuracy method found for an object of class data.frame
+> ytpron2 = pronmodelo2[,1]
+> accuracy(ytpron2, ytnuevo)
+                ME     RMSE      MAE      MPE     MAPE       ACF1 Theil's U
+Test set -3.753971 4.412345 4.018226 -1.99285 2.141084 -0.1675056 0.2899582
+> win.graph()
+> plot(Datos5,main=""Ajuste y Pronóstico - Modelo 2 Exponencial",ylab="Valores de la Serie",xlab="Tiempo")
+Error: unexpected symbol en "plot(Datos5,main=""Ajuste"
+> plot(Datos5,main="Ajuste y Pronóstico - Modelo 2 Exponencial",ylab="Valores de la Serie",xlab="Tiempo")
+> lines(fitted(modelo2)col="blue",lwd=2)
+Error: unexpected symbol en "lines(fitted(modelo2)col"
+> lines(fitted(modelo2),col="blue",lwd=2)
+> lines(ts(ytpron2,start=start(ytnuevo),freq=12),col="red",lwd=2)
+> legend("topleft",legend=c("Original", "Ajuste(Modelo 2)", "Pronostico"),col=c("black", "blue", "red"),lty=1,lwd=2)
+> win.graph()
+> plot(Datos5,main=""Ajuste y Pronóstico - Modelo 2 Exponencial",ylab="Valores de la Serie",xlab="Tiempo")
+Error: unexpected symbol en "plot(Datos5,main=""Ajuste"
+> legend("topleft",legend=c("Original", "Ajuste(Modelo 2)", "Pronostico"),col=c("black", "blue", "red"),lty=1,lwd=2)
+Error en (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL, : 
+  plot.new has not been called yet
+> win.graph(); plot(residuals(modelo2))
+> win.graph(); plot(Datos7); lines(modelo2,col=2,lwd=2)
+Error: objeto 'Datos7' no encontrado
+> win.graph(); plot(Datos5); lines(modelo2,col=2,lwd=2)
+Error en xy.coords(x, y): 
+  'x' is a list, but does not have components 'x' and 'y'
+> win.graph()
+> plot(Datos5,main="Ajuste y Pronóstico - Modelo 2 Exponencial",ylab="Valores de la Serie",xlab="Tiempo")
+> lines(fitted(modelo2),col="blue",lwd=2)
+> lines(ts(ytpron2,start=start(ytnuevo), freq=12), col="red",lwd=2)
+> win.graph()
+> plot(Datos5,main="Ajuste y Pronóstico - Modelo 2 Exponencial",ylab="Valores de la Serie",xlab="Tiempo")
+> lines(ts(fitted(modelo2), start=start(Datos5),freq=12),col="blue", lwd=2)
+> lines(ts(ytpron2, start=start(ytnuevo), freq=12), col="red", lwd=2)
+> win.graph()
+> save.image("C:\\Users\\suscu\\Downloads\\Trabajo estadistica\\Susca")
+> #Modelo 3
+> modelo3=SuavizamientoEstacional(yt,seasonal="multiplicative",h=12, beta=1e5,gamma=1e-5)   
+Error en SuavizamientoEstacional(yt, seasonal = "multiplicative", h = 12, : 
+  no se pudo encontrar la función "SuavizamientoEstacional"
+> source("https://raw.githubusercontent.com/NelfiGonzalez/Funciones-de-Usuario-Estadistica-III/main/Funcion-SuavizamientoEstacional.R")
+> modelo3=SuavizamientoEstacional(yt,seasonal="multiplicative",h=12, beta=1e5,gamma=1e-5)   
+Error en HoltWinters(serie, alpha = alpha, beta = beta, gamma = gamma, : 
+  'alpha', 'beta' y 'gamma' deben estar dentro del intervalo unitario
+> modelo3=SuavizamientoEstacional(yt,seasonal="multiplicative",h=12, beta=1e-5,gamma=1e-5)   
+
+Call:
+HoltWinters(x = serie, alpha = alpha, beta = beta, gamma = gamma, 
+    seasonal = seasonal, optim.start = optim.start, optim.control = optim.control)
+
+Smoothing parameters:               
+alpha 0.5615309
+beta  0.0000100
+gamma 0.0000100
+
+Coefficients:               
+a   175.8041172
+b     0.4708723
+s1    0.9467412
+s2    0.9052061
+s3    1.0636623
+s4    0.9990272
+s5    1.0118026
+s6    0.9731924
+s7    1.0108576
+s8    1.0165364
+s9    0.9741878
+s10   0.9666421
+s11   0.9531267
+s12   1.1790213
+> ythat3=fitted(modelo3)
+> win.graph(); plot(Datos7); lines(ythat2,col=2,lwd=2)legend("topleft",legend=c("Original","Modelo 2 (HW mult)"),col=c(1,2),lty=1) 
+Error: objeto 'Datos7' no encontrado
+> win.graph(); plot(Datos5); lines(ythat3,col=2,lwd=2)legend("topleft",legend=c("Original","Modelo 3 (HW mult)"),col=c(1,2),lty=1) 
+Error: unexpected symbol en " lines(ythat3,col=2,lwd=2)legend"
+> win.graph(); plot(Datos7); lines(ythat2,col=2,lwd=2)
+Error: objeto 'Datos7' no encontrado
+> win.graph(); plot(Datos5); lines(ythat3,col=2,lwd=2)
+> legend("topleft",legend=c("Original","Modelo 2 (HW mult)"),col=c(1,2),lty=1)
+> npar3=(s-1)+2
+> Criterios3=exp.crit.inf.resid(residuals(modelo3),n.par=npar3)
+> pronmodelo3=modelo3$forecast
+> ytpron3=pronmodelo3[,1]
+> accuracy(ytpron2,ytnuevo)
+                ME     RMSE      MAE      MPE     MAPE       ACF1 Theil's U
+Test set -3.753971 4.412345 4.018226 -1.99285 2.141084 -0.1675056 0.2899582
+> Amplcobmodelo3=amplitud.cobertura(ytnuevo,pronmodelo3[,2],pronmodelo3[,3])
+> accuracy(ytpron3,ytnuevo)
+               ME     RMSE      MAE      MPE    MAPE       ACF1 Theil's U
+Test set 8.831328 20.32871 15.04267 4.341942 7.74819 -0.4560422  1.273659
+> ScoreIP3=IntervalScore(ytnuevo,pronmodelo3[,2],pronmodelo3[,3],alpha=0.05)
+> win.graph(); plot(residuals(modelo2))
+> win.graph(); plot.ts(residuals(modelo1))
+> win.graph(); plot.(residuals(modelo1))
+Error en plot.(residuals(modelo1)): 
+  no se pudo encontrar la función "plot."
+> win.graph(); plot(residuals(modelo3))
+> abline(h=c(-2*sqrt(modelo3$MSE),0,2*sqrt(modelo3$MSE)),col=2)
+> #modelo 4  DLL (GCV)
+> modelo3=Descomp.Loessv02(serie.ajuste=yt,tipo.descomp="multiplicative",
++ modelo3=Descomp.Loessv02(serie.ajuste=yt,tipo.descomp="multiplicative",grado=1,criterio="gcv",h=12,level=0.95)
++ modelo4=Descomp.Loessv02(serie.ajuste=yt,tipo.descomp="multiplicative",grado=1,criterio="gcv",h=12,level=0.95)
+Error: unexpected symbol in:
+"modelo3=Descomp.Loessv02(serie.ajuste=yt,tipo.descomp="multiplicative",grado=1,criterio="gcv",h=12,level=0.95)
+modelo4"
+> modelo4=Descomp.Loessv02(serie.ajuste=yt,tipo.descomp="multiplicative",grado=1,criterio="gcv",h=12,level=0.95)
+Error en Descomp.Loessv02(serie.ajuste = yt, tipo.descomp = "multiplicative", : 
+  no se pudo encontrar la función "Descomp.Loessv02"
+> source("https://raw.githubusercontent.com/NelfiGonzalez/Funciones-de-Usuario-Estadistica-III/main/Funcion-Descomp.Loessv02.R")
+> modelo4=Descomp.Loessv02(serie.ajuste=yt,tipo.descomp="multiplicative",grado=1,criterio="gcv",h=12,level=0.95)
+fANCOVA 0.6-1 loaded
+Efectos estacionales estimados             
+s1  0.9669103
+s2  0.9296931
+s3  1.0632504
+s4  0.9979219
+s5  1.0093284
+s6  0.9630057
+s7  1.0145421
+s8  0.9982658
+s9  0.9690832
+s10 0.9851573
+s11 0.9486447
+s12 1.1541969
+
+Resumen Loess sobre serie desestacionalizada:
+Call:
+loess(formula = y ~ x, data = data.bind, span = span1, degree = degree, 
+    family = family)
+
+Number of Observations: 137 
+Equivalent Number of Parameters: 21.72 
+Residual Standard Error: 2.677 
+Trace of smoother matrix: 25.7  (exact)
+
+Control settings:
+  span     :  0.0780581 
+  degree   :  1 
+  family   :  gaussian
+  surface  :  interpolate         cell = 0.2
+  normalize:  TRUE
+ parametric:  FALSE
+drop.square:  FALSE 
+> ythat4=fitted(modelo4)
+> win.graph(); plot(Datos7); lines(ythat3,col=2,lwd=2)
+Error: objeto 'Datos7' no encontrado
+> win.graph(); plot(Datos5); lines(ythat3,col=2,lwd=2)
+> legend("topleft",legend=c("Original","Modelo 3 (DLL GCV)"),col=c(1,2),lty=1)
+> npar4=modelo4$p
+> Criterios4=exp.crit.inf.resid(residuals(modelo4),n.par=npar4)
+> pronmodelo4=modelo4$forecast
+> ytpron4=pronmodelo4[,1]
+> accuracy(ytpron3,ytnuevo)
+               ME     RMSE      MAE      MPE    MAPE       ACF1 Theil's U
+Test set 8.831328 20.32871 15.04267 4.341942 7.74819 -0.4560422  1.273659
+> accuracy(ytpron4,ytnuevo)
+               ME     RMSE      MAE      MPE     MAPE      ACF1 Theil's U
+Test set 13.65091 21.91743 17.00051 6.904735 8.746577 -0.454428  1.386267
+> Amplcobmodelo4=amplitud.cobertura(ytnuevo,pronmodelo4[,2],pronmodelo4[,3])
+> ScoreIP4=IntervalScore(ytnuevo,pronmodelo4[,2],pronmodelo4[,3],alpha=0.05)
+> win.graph(); plot(residuals(modelo3))
+> win.graph(); plot(residuals(modelo4))
+> abline(h=c(-2*sqrt(modelo4$MSE),0,2*sqrt(modelo4$MSE)),col=2)
+> #Comparemos los pronosticos 
+> win.graph()
+> plot(ytnuevo,xaxt="n",ylim=c(min(ytnuevo,ytpron1,ytpron2,ytpron3,ytprn4),max(ytnuevo,ytpron1,ytpron2,ytpron3)+3),type="b",pch=19,lwd=3)
+Error: objeto 'ytprn4' no encontrado
+> plot(ytnuevo,xaxt="n",ylim=c(min(ytnuevo,ytpron1,ytpron2,ytpron3,ytpron4),max(ytnuevo,ytpron1,ytpron2,ytpron3)+3),type="b",pch=19,lwd=3)
+> plot(ytnuevo,xaxt="n",ylim=c(min(ytnuevo,ytpron1,ytpron2,ytpron3,ytpron4),max(ytnuevo,ytpron1,ytpron2,ytpron3)+3),type="b",pch=19,lwd=3)
+> lines(ytpron1,type="b",pch=2,lty=2,lwd=3,col=2)
+> lines(ytpron2,type="b",pch=3,lty=3,lwd=3,col=4)
+> lines(ytpron3,type="b",pch=4,lty=4,lwd=3,col=6)
+> lines(ytpron4,type="b",pch=5,lty=5,lwd=3,col=8)
+> axis(1,at=time(ytnuevo),labels=paste0(month.abb[6:12],"-25"),cex.axis=0.7)
+Error en axis(1, at = time(ytnuevo), labels = paste0(month.abb[6:12], : 
+  longitud de 'at' y 'labels' difieren, 12 != 7
